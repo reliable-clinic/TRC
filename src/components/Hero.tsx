@@ -15,8 +15,8 @@ export const Hero: React.FC<HeroProps> = ({ onBookNowClick }) => {
       {/* Interactive WebGL 3D Canvas */}
       <ThreeDBackground />
 
-      <div className="container" style={styles.container}>
-        <div style={styles.content}>
+      <div className="container hero-container" style={styles.container}>
+        <div className="hero-content" style={styles.content}>
           <div className="animate-fade-in" style={styles.badgeWrapper}>
             <span className="badge-gold">DHA Phase 5, Karachi</span>
           </div>
@@ -31,7 +31,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNowClick }) => {
           </p>
 
           {/* Quick Key Benefits Grid */}
-          <div style={styles.statsGrid}>
+          <div className="hero-stats-grid" style={styles.statsGrid}>
             <div style={styles.statCard}>
               <Award style={styles.statIcon} size={24} />
               <div>
@@ -56,7 +56,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNowClick }) => {
           </div>
 
           {/* Action Callouts */}
-          <div style={styles.btnGroup}>
+          <div className="hero-btn-group" style={styles.btnGroup}>
             <button className="btn btn-primary" onClick={onBookNowClick}>
               <Calendar size={18} />
               Book Free Consultation
@@ -81,7 +81,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNowClick }) => {
         </div>
 
         {/* Feature Visual Card - Glowing logo & highlight */}
-        <div className="animate-fade-in" style={styles.visualWrapper}>
+        <div className="animate-fade-in hero-visual-wrapper" style={styles.visualWrapper}>
           <div style={styles.glowingFrame}>
             <div style={styles.logoCircle}>
               <span style={styles.logoLogo}>TRC</span>

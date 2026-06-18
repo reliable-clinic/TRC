@@ -42,12 +42,14 @@ export const BeforeAfter: React.FC = () => {
         {/* Tab Selector */}
         <div style={styles.tabContainer}>
           <button 
+            className="before-after-tab-btn"
             style={{...styles.tabBtn, ...(activeTab === 'hair' ? styles.activeTab : {})}}
             onClick={() => { setActiveTab('hair'); setSliderPos(50); }}
           >
             Hair Transplant
           </button>
           <button 
+            className="before-after-tab-btn"
             style={{...styles.tabBtn, ...(activeTab === 'skin' ? styles.activeTab : {})}}
             onClick={() => { setActiveTab('skin'); setSliderPos(50); }}
           >
@@ -58,6 +60,7 @@ export const BeforeAfter: React.FC = () => {
         {/* The Split Slider Container */}
         <div 
           ref={containerRef}
+          className="before-after-slider"
           style={styles.sliderContainer}
           onMouseMove={handleMouseMove}
           onTouchMove={handleTouchMove}

@@ -161,10 +161,10 @@ _Please show this digital receipt at the clinic desk._`
 
   return (
     <section id="book" style={styles.section}>
-      <div className="container" style={styles.container}>
+      <div className="container booking-container" style={styles.container}>
         
         {/* Left Side: Text and trust seals */}
-        <div style={styles.leftCol}>
+        <div className="booking-left-col" style={styles.leftCol}>
           <span className="badge-gold">Book Appointment</span>
           <h2 style={styles.heading}>Schedule Your <br /><span className="gold-shine-text">Free Consultation</span></h2>
           <p style={styles.desc}>
@@ -198,7 +198,7 @@ _Please show this digital receipt at the clinic desk._`
 
         {/* Right Side: Form card */}
         <div style={styles.rightCol}>
-          <div className="luxury-card" style={styles.formCard}>
+          <div className="luxury-card booking-form-card" style={styles.formCard}>
             
             {isSubmitted && lastBooking ? (
               <div className="animate-fade-in" style={styles.successWrapper}>

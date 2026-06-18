@@ -77,12 +77,12 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onTogglePortal, cu
 
       {/* Google Maps Embed Mock / Location Guide Card */}
       <div className="container" style={{ margin: '40px auto 0' }}>
-        <div style={styles.mapCard}>
+        <div className="footer-map-card" style={styles.mapCard}>
           <div style={styles.mapHeader}>
             <span style={styles.mapIndicator}></span>
             <span style={styles.mapTitle}>Find Us in DHA Phase 5 Karachi (Touheed Commercial Area)</span>
           </div>
-          <div style={styles.mapMock}>
+          <div className="footer-map-mock" style={styles.mapMock}>
             {/* Visual representation of a dark luxury map */}
             <div style={styles.mapRoad1}>34th Street</div>
             <div style={styles.mapRoad2}>27th Street</div>
@@ -97,7 +97,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onTogglePortal, cu
 
       {/* Lower Footer / Legal & Admin Portal link */}
       <div style={styles.bottomBar}>
-        <div className="container" style={styles.bottomContainer}>
+        <div className="container footer-bottom-container" style={styles.bottomContainer}>
           <p style={styles.copyright}>
             © {new Date().getFullYear()} TRC - The Reliable Aesthetic Clinic. All rights reserved.
           </p>

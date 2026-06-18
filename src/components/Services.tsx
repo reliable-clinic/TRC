@@ -151,7 +151,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
           </p>
         </div>
 
-        <div style={styles.servicesGrid}>
+        <div className="services-grid" style={styles.servicesGrid}>
           {servicesList.map((service) => (
             <div key={service.id} className="luxury-card" style={styles.serviceCard}>
               <div style={styles.cardHeader}>

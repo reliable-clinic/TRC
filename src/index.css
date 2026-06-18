@@ -368,3 +368,138 @@ a {
   color: var(--color-cancelled);
   border: 1px solid rgba(239, 68, 68, 0.3);
 }
+
+/* ==========================================================================
+   RESPONSIVE / MOBILE LAYOUT STYLES
+   ========================================================================== */
+@media (max-width: 992px) {
+  .hero-container {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  
+  .hero-visual-wrapper {
+    margin-top: 20px;
+  }
+  
+  .booking-container {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Global section spacing */
+  section {
+    padding: 60px 0 !important;
+  }
+  
+  .section-title {
+    font-size: 2.0rem !important;
+  }
+  
+  /* Hero Responsiveness */
+  .hero-content {
+    align-items: center !important;
+    text-align: center !important;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.2rem !important;
+    text-align: center !important;
+  }
+  
+  .hero-content p {
+    text-align: center !important;
+    font-size: 0.95rem !important;
+  }
+  
+  .hero-btn-group {
+    justify-content: center !important;
+    width: 100%;
+  }
+  
+  .hero-btn-group .btn {
+    width: 100% !important;
+  }
+  
+  .hero-stats-grid {
+    justify-content: center !important;
+  }
+  
+  .hero-stats-grid > div {
+    flex: 1 1 100% !important;
+  }
+  
+  /* Before/After Slider Responsiveness */
+  .before-after-slider {
+    height: 300px !important;
+  }
+  
+  .before-after-slider h3 {
+    font-size: 1.1rem !important;
+  }
+  
+  .before-after-slider p {
+    font-size: 0.75rem !important;
+  }
+  
+  .before-after-tab-btn {
+    padding: 8px 16px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  /* Services Responsiveness */
+  .services-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 20px !important;
+  }
+  
+  /* Booking Form Responsiveness */
+  .booking-left-col {
+    align-items: center !important;
+    text-align: center !important;
+  }
+  
+  .booking-left-col h2 {
+    font-size: 2.0rem !important;
+    text-align: center !important;
+  }
+  
+  .booking-left-col p {
+    text-align: center !important;
+  }
+  
+  .booking-form-card {
+    padding: 25px 20px !important;
+  }
+  
+  .booking-form-card form h3 {
+    font-size: 1.3rem !important;
+  }
+  
+  /* Footer Responsiveness */
+  .footer-map-card {
+    padding: 10px !important;
+  }
+  
+  .footer-map-mock {
+    height: 150px !important;
+  }
+  
+  .footer-bottom-container {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  .section-title {
+    font-size: 1.7rem !important;
+  }
+}
+
