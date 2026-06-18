@@ -224,23 +224,23 @@ const styles: Record<string, React.CSSProperties> = {
   },
   /* Styled CSS Graphics for Hair */
   hairBefore: {
-    backgroundImage: "url('/assets/hair_before.png')",
+    backgroundImage: "url('assets/hair_before.png')",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
   hairAfter: {
-    backgroundImage: "url('/assets/hair_after.png')",
+    backgroundImage: "url('assets/hair_after.png')",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
   /* Styled CSS Graphics for Skin */
   skinBefore: {
-    backgroundImage: "url('/assets/skin_before.png')",
+    backgroundImage: "url('assets/skin_before.png')",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
   skinAfter: {
-    backgroundImage: "url('/assets/skin_after.png')",
+    backgroundImage: "url('assets/skin_after.png')",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
