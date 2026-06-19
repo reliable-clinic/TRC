@@ -39,8 +39,8 @@ const styles: Record<string, React.CSSProperties> = {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    opacity: 0.22, // Muted opacity for premium cinematic look
-    filter: 'contrast(1.1) brightness(0.7) grayscale(0.25)', // Clinical tech styling
+    opacity: 0.55, // Increased opacity so the video is clearly visible
+    filter: 'contrast(1.05) brightness(0.9)', // Clean natural colors
   },
   overlay: {
     position: 'absolute',
@@ -48,8 +48,8 @@ const styles: Record<string, React.CSSProperties> = {
     left: 0,
     width: '100%',
     height: '100%',
-    // Gold/dark gradient matching TRC guidelines
-    background: 'linear-gradient(to right, rgba(7, 7, 8, 0.9) 20%, rgba(7, 7, 8, 0.6) 60%, rgba(7, 7, 8, 0.95) 100%), linear-gradient(to bottom, rgba(7, 7, 8, 0.4) 0%, rgba(7, 7, 8, 0) 50%, rgba(7, 7, 8, 0.9) 100%)',
+    // Softened dark gradient overlay that allows the treatment video to shine through, while maintaining high text contrast
+    background: 'linear-gradient(to right, rgba(7, 7, 8, 0.6) 10%, rgba(7, 7, 8, 0.2) 50%, rgba(7, 7, 8, 0.65) 100%), linear-gradient(to bottom, rgba(7, 7, 8, 0.3) 0%, rgba(7, 7, 8, 0) 60%, rgba(7, 7, 8, 0.7) 100%)',
   }
 }
 export default VideoBackground
