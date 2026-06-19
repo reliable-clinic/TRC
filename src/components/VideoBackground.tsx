@@ -12,7 +12,7 @@ export const VideoBackground: React.FC = () => {
         style={styles.video}
       >
         <source 
-          src="https://assets.mixkit.co/videos/preview/mixkit-woman-receiving-facial-treatment-at-a-beauty-salon-40242-large.mp4" 
+          src="assets/treatment.mp4" 
           type="video/mp4" 
         />
         Your browser does not support the video tag.
