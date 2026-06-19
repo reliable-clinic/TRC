@@ -503,3 +503,52 @@ a {
   }
 }
 
+/* ==========================================================================
+   RESULTS CAROUSEL CUSTOM INTERACTIONS
+   ========================================================================== */
+.carousel-card {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-card:hover {
+  border-color: var(--gold-primary) !important;
+  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15) !important;
+}
+
+.carousel-card:hover .slideImage {
+  transform: scale(1.03);
+}
+
+.carousel-card:hover .carousel-hover-overlay {
+  opacity: 1 !important;
+}
+
+.carousel-card:hover .zoom-icon {
+  transform: scale(1) !important;
+}
+
+.carousel-nav-btn:hover {
+  background-color: var(--gold-primary) !important;
+  color: #000000 !important;
+  border-color: var(--gold-primary) !important;
+  box-shadow: 0 0 15px var(--gold-glow) !important;
+  transform: translateY(-50%) scale(1.05) !important;
+}
+
+.carousel-nav-btn:active {
+  transform: translateY(-50%) scale(0.95) !important;
+}
+
+@media (max-width: 768px) {
+  .carousel-nav-btn {
+    width: 35px !important;
+    height: 35px !important;
+  }
+  .carousel-nav-btn svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+

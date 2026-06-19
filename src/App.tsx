@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Hero } from './components/Hero.tsx'
 import { Services } from './components/Services.tsx'
 import { BeforeAfter } from './components/BeforeAfter.tsx'
+import { ResultsCarousel } from './components/ResultsCarousel.tsx'
 import { BookingForm } from './components/BookingForm.tsx'
 import { Dashboard, Booking } from './components/Dashboard.tsx'
 import { ContactFooter } from './components/ContactFooter.tsx'
@@ -185,6 +186,7 @@ export default function App() {
             <nav style={styles.navLinks}>
               <a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection('services'); }} style={styles.link}>Services</a>
               <a href="#results" onClick={(e) => { e.preventDefault(); scrollToSection('results'); }} style={styles.link}>Results</a>
+              <a href="#gallery" onClick={(e) => { e.preventDefault(); scrollToSection('gallery'); }} style={styles.link}>Gallery</a>
               <a href="#book" onClick={(e) => { e.preventDefault(); scrollToSection('book'); }} style={styles.link}>Book Online</a>
               <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }} style={styles.link}>Contact</a>
             </nav>
@@ -239,6 +241,7 @@ export default function App() {
           <Hero onBookNowClick={() => scrollToSection('book')} />
           <Services onSelectService={handleSelectService} />
           <BeforeAfter />
+          <ResultsCarousel />
           <BookingForm 
             selectedServiceId={selectedServiceId} 
             onAddBooking={handleAddBooking} 

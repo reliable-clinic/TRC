@@ -1,6 +1,6 @@
 import React from 'react'
 import { Calendar, Phone, MessageSquare, Award, Shield, Users } from 'lucide-react'
-import { ThreeDBackground } from './ThreeDBackground.tsx'
+import { VideoBackground } from './VideoBackground.tsx'
 
 interface HeroProps {
   onBookNowClick: () => void
@@ -12,8 +12,8 @@ export const Hero: React.FC<HeroProps> = ({ onBookNowClick }) => {
       {/* Decorative Gold Radial Glow */}
       <div style={styles.radialGlow}></div>
 
-      {/* Interactive WebGL 3D Canvas */}
-      <ThreeDBackground />
+      {/* Looping Clinical Treatment Video Background */}
+      <VideoBackground />
 
       <div className="container hero-container" style={styles.container}>
         <div className="hero-content" style={styles.content}>

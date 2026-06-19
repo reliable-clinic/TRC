@@ -17,13 +17,13 @@ interface BookingFormProps {
 }
 
 const AVAILABLE_SERVICES = [
-  { id: 'hair-transplant', name: 'Hair Transplant', price: 80000, displayPrice: 'Inquiry' },
-  { id: 'carbon-peel', name: 'Carbon Peel Laser', price: 4500, displayPrice: 'Rs. 4,500' },
-  { id: 'hair-prp', name: 'Hair PRP', price: 5000, displayPrice: 'Rs. 5,000' },
-  { id: 'skin-prp', name: 'Skin PRP (Scan PRP)', price: 5000, displayPrice: 'Rs. 5,000' },
-  { id: 'whitening-drips', name: 'Whitening Drips', price: 4000, displayPrice: 'Rs. 4,000' },
-  { id: 'hydra-facial', name: 'Hydra Facial', price: 3500, displayPrice: 'Rs. 3,500' },
-  { id: 'scan-laser', name: 'Scan Laser Treatment', price: 6000, displayPrice: 'Rs. 6,000' },
+  { id: 'hair-transplant', name: 'Hair Transplant', price: 0, displayPrice: 'Price on Consultation' },
+  { id: 'carbon-peel', name: 'Carbon Peel Laser', price: 0, displayPrice: 'Price on Consultation' },
+  { id: 'hair-prp', name: 'Hair PRP', price: 0, displayPrice: 'Price on Consultation' },
+  { id: 'skin-prp', name: 'Skin PRP (Scan PRP)', price: 0, displayPrice: 'Price on Consultation' },
+  { id: 'whitening-drips', name: 'Whitening Drips', price: 0, displayPrice: 'Price on Consultation' },
+  { id: 'hydra-facial', name: 'Hydra Facial', price: 0, displayPrice: 'Price on Consultation' },
+  { id: 'scan-laser', name: 'Scan Laser Treatment', price: 0, displayPrice: 'Price on Consultation' },
 ]
 
 const TIME_SLOTS = [
@@ -137,7 +137,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ selectedServiceId, onA
   const getWhatsAppReceiptUrl = () => {
     if (!lastBooking) return '#'
     
-    const formattedPrice = lastBooking.price > 0 ? `Rs. ${lastBooking.price.toLocaleString()}` : 'Inquiry / Free Consultation'
+    const formattedPrice = 'Price on Consultation'
     const textMessage = 
 `✨ *TRC AESTHETIC CLINIC* ✨
 ----------------------------------
@@ -227,7 +227,7 @@ _Please show this digital receipt at the clinic desk._`
                     <div style={styles.invoiceRow}><span style={styles.invoiceLabel}>Treatment:</span><span style={styles.invoiceVal}>{lastBooking.service}</span></div>
                     <div style={styles.invoiceRow}><span style={styles.invoiceLabel}>Scheduled:</span><span style={styles.invoiceVal}>{lastBooking.date}</span></div>
                     <div style={styles.invoiceRow}><span style={styles.invoiceLabel}>Time Slot:</span><span style={styles.invoiceVal}>{lastBooking.time}</span></div>
-                    <div style={styles.invoiceRow}><span style={styles.invoiceLabel}>Price:</span><span style={{...styles.invoiceVal, color: '#d4af37', fontWeight: 'bold'}}>{lastBooking.price > 0 ? `Rs. ${lastBooking.price.toLocaleString()}` : 'Inquiry'}</span></div>
+                    <div style={styles.invoiceRow}><span style={styles.invoiceLabel}>Price:</span><span style={{...styles.invoiceVal, color: '#d4af37', fontWeight: 'bold'}}>Price on Consultation</span></div>
                   </div>
                 </div>
 
