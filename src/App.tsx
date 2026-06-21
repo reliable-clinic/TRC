@@ -3,6 +3,7 @@ import { Hero } from './components/Hero.tsx'
 import { Services } from './components/Services.tsx'
 import { BeforeAfter } from './components/BeforeAfter.tsx'
 import { ResultsCarousel } from './components/ResultsCarousel.tsx'
+import { PriceList } from './components/PriceList.tsx'
 import { BookingForm } from './components/BookingForm.tsx'
 import { Dashboard, Booking } from './components/Dashboard.tsx'
 import { ContactFooter } from './components/ContactFooter.tsx'
@@ -186,7 +187,7 @@ export default function App() {
             <nav style={styles.navLinks}>
               <a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection('services'); }} style={styles.link}>Services</a>
               <a href="#results" onClick={(e) => { e.preventDefault(); scrollToSection('results'); }} style={styles.link}>Results</a>
-              <a href="#gallery" onClick={(e) => { e.preventDefault(); scrollToSection('gallery'); }} style={styles.link}>Gallery</a>
+              <a href="#pricing" onClick={(e) => { e.preventDefault(); scrollToSection('pricing'); }} style={styles.link}>Prices</a>
               <a href="#book" onClick={(e) => { e.preventDefault(); scrollToSection('book'); }} style={styles.link}>Book Online</a>
               <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }} style={styles.link}>Contact</a>
             </nav>
@@ -242,6 +243,7 @@ export default function App() {
           <Services onSelectService={handleSelectService} />
           <BeforeAfter />
           <ResultsCarousel />
+          <PriceList onSelectService={handleSelectService} />
           <BookingForm 
             selectedServiceId={selectedServiceId} 
             onAddBooking={handleAddBooking} 
