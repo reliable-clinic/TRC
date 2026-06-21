@@ -16,11 +16,11 @@ export const VideoBackground: React.FC = () => {
                             type="video/mp4" 
                           />
                           Your browser does not support the video tag.
-                  </video>video>
+                  </video>
           
             {/* Dark luxury overlay gradient for text readability and cinematic look */}
-                <div style={styles.overlay}></div>div>
-          </div>div>
+                <div style={styles.overlay}></div>
+          </div>
         )
 }
   
@@ -51,5 +51,4 @@ export const VideoBackground: React.FC = () => {
             background: 'linear-gradient(to right, rgba(7, 7, 8, 0.6) 10%, rgba(7, 7, 8, 0.2) 50%, rgba(7, 7, 8, 0.65) 100%), linear-gradient(to bottom, rgba(7, 7, 8, 0.3) 0%, rgba(7, 7, 8, 0) 60%, rgba(7, 7, 8, 0.7) 100%)',
       }
   }
-    export default VideoBackground
-      </video>
+  export default VideoBackground
