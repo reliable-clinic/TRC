@@ -132,6 +132,27 @@ export const BookingForm: React.FC<BookingFormProps> = ({ selectedServiceId, onA
 
     // Try to sync to the local uvicorn server in the background
     try {
+      // Also register to the public cloud KeyValue store so the clinic can see it remotely
+      try {
+        const cloudRes = await fetch('https://extendsclass.com/api/json-storage/bin/ffaadcd');
+        let currentCloudBookings = [];
+        if (cloudRes.ok) {
+          try { currentCloudBookings = await cloudRes.json(); } catch(e){}
+        }
+        if (!Array.isArray(currentCloudBookings)) {
+          currentCloudBookings = [];
+        }
+        currentCloudBookings.push(bookingData);
+        await fetch('https://extendsclass.com/api/json-storage/bin/ffaadcd', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(currentCloudBookings)
+        });
+        console.log('Cloud booking registered successfully!');
+      } catch (cloudErr) {
+        console.error('Error syncing to cloud bookings store:', cloudErr);
+      }
+
       console.log('Connecting to local server to register online booking...');
       const patSearchRes = await fetch(`http://localhost:5000/api/patients?search=${encodeURIComponent(formData.phone)}`);
       let patientId: number | null = null;
