@@ -70,8 +70,30 @@ export const BookingForm: React.FC<BookingFormProps> = ({ selectedServiceId, onA
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
+  const parseDateTime = (dateStr: string, timeSlotStr: string): string => {
+    try {
+      const timePart = timeSlotStr.split(' - ')[0];
+      const [time, modifier] = timePart.split(' ');
+      let [hoursStr, minutesStr] = time.split(':');
+      let hours = parseInt(hoursStr, 10);
+      const minutes = parseInt(minutesStr, 10);
 
-  const handleSubmit = (e: React.FormEvent) => {
+      if (modifier === 'PM' && hours < 12) {
+        hours += 12;
+      }
+      if (modifier === 'AM' && hours === 12) {
+        hours = 0;
+      }
+
+      const hoursFormatted = String(hours).padStart(2, '0');
+      const minutesFormatted = String(minutes).padStart(2, '0');
+      return `${dateStr}T${hoursFormatted}:${minutesFormatted}:00`;
+    } catch (e) {
+      return `${dateStr}T12:00:00`;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
     // Validation
@@ -94,7 +116,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ selectedServiceId, onA
     const serviceInfo = AVAILABLE_SERVICES.find(s => s.id === formData.serviceId)
     const serviceName = serviceInfo ? serviceInfo.name : 'Aesthetic Consultation'
     const servicePrice = serviceInfo ? serviceInfo.price : 0
-    const bookingId = 'TRC-' + Math.floor(1000 + Math.random() * 9000)
+    let bookingId = 'TRC-' + Math.floor(1000 + Math.random() * 9000)
 
     const bookingData = {
       id: bookingId,
@@ -106,6 +128,65 @@ export const BookingForm: React.FC<BookingFormProps> = ({ selectedServiceId, onA
       date: formData.date,
       time: formData.time,
       status: 'Pending' as const
+    }
+
+    // Try to sync to the local uvicorn server in the background
+    try {
+      console.log('Connecting to local server to register online booking...');
+      const patSearchRes = await fetch(`http://localhost:5000/api/patients?search=${encodeURIComponent(formData.phone)}`);
+      let patientId: number | null = null;
+      if (patSearchRes.ok) {
+        const matches = await patSearchRes.json();
+        if (matches && matches.length > 0) {
+          patientId = matches[0].PatientID;
+          console.log(`Found existing patient: TRC-${patientId}`);
+        }
+      }
+
+      if (!patientId) {
+        const newPatRes = await fetch('http://localhost:5000/api/patients', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            PatientName: formData.name,
+            FatherName: 'Online Website Registration',
+            Gender: 'Male',
+            Age: 25,
+            Mobile: formData.phone,
+            Address: 'Website Booking Form',
+            TreatmentType: serviceName,
+            Notes: `Registered online for ${serviceName}. Email: ${formData.email || 'None'}`,
+            FollowUpDate: formData.date
+          })
+        });
+        if (newPatRes.ok) {
+          const patData = await newPatRes.json();
+          patientId = patData.PatientID;
+          console.log(`Registered new patient: TRC-${patientId}`);
+        }
+      }
+
+      if (patientId) {
+        const isoDateTime = parseDateTime(formData.date, formData.time);
+        const appRes = await fetch('http://localhost:5000/api/appointments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            PatientID: patientId,
+            AppointmentDate: isoDateTime,
+            Doctor: 'Dr. Ahsan',
+            Status: 'Scheduled'
+          })
+        });
+        if (appRes.ok) {
+          const appData = await appRes.json();
+          bookingId = `TRC-${appData.AppointmentID || Math.floor(1000 + Math.random() * 9000)}`;
+          bookingData.id = bookingId;
+          console.log(`Appointment scheduled with ID: ${bookingId}`);
+        }
+      }
+    } catch (netErr) {
+      console.warn('Dashboard server offline. Proceeding with offline receipt mode.', netErr);
     }
 
     // Add booking to global state
@@ -122,9 +203,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ selectedServiceId, onA
       date: '',
       time: TIME_SLOTS[0]
     })
-  }
-
-  // Get current date formatted for min date selector
+  }  // Get current date formatted for min date selector
   const getMinDate = () => {
     const today = new Date()
     const yyyy = today.getFullYear()
