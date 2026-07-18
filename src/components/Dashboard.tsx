@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { 
-  Users, DollarSign, Calendar, TrendingUp, Search, PlusCircle, 
-  CheckCircle2, XCircle, Clock, Trash2, LogOut, Lock, ShieldAlert 
+  Users, DollarSign, Calendar, TrendingUp, PlusCircle, 
+  LogOut, Lock, ShieldAlert 
 } from 'lucide-react'
 
 export interface Booking {
@@ -30,16 +30,14 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ 
-  bookings, onUpdateStatus, onDeleteBooking, onAddManualWalkin 
+  bookings, onAddManualWalkin 
 }) => {
   // Passcode Protection state
   const [passcode, setPasscode] = useState('')
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [authError, setAuthError] = useState('')
 
-  // Search and Filter State
-  const [searchTerm, setSearchTerm] = useState('')
-  const [statusFilter, setStatusFilter] = useState<'All' | 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled'>('All')
+
 
   // Manual Walk-in form state
   const [walkinName, setWalkinName] = useState('')
@@ -77,17 +75,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
     .filter(b => b.status === 'Completed')
     .reduce((sum, b) => sum + b.price, 0)
 
-  // Filtered Bookings for the table
-  const filteredBookings = bookings.filter(b => {
-    const matchesSearch = 
-      b.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      b.phone.includes(searchTerm) ||
-      b.id.toLowerCase().includes(searchTerm.toLowerCase())
-      
-    const matchesStatus = statusFilter === 'All' ? true : b.status === statusFilter
-    
-    return matchesSearch && matchesStatus
-  })
+
 
   // Handle manual walk-in submit
   const handleWalkinSubmit = (e: React.FormEvent) => {
@@ -111,28 +99,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
     setTimeout(() => setWalkinSuccessMsg(''), 4000)
   }
 
-  const handleSendReminder = (booking: Booking) => {
-    let cleanPhone = booking.phone.replace(/\D/g, '')
-    if (cleanPhone.startsWith('0')) {
-      cleanPhone = '92' + cleanPhone.substring(1)
-    } else if (!cleanPhone.startsWith('92') && cleanPhone.length === 10) {
-      cleanPhone = '92' + cleanPhone
-    }
-    
-    const textMessage = 
-`🔔 *TRC AESTHETIC CLINIC REMINDER* 🔔
-----------------------------------
-Hello *${booking.name}*,
 
-This is a friendly reminder that your appointment for *${booking.service}* is scheduled in *2 hours* (at *${booking.time}* today, *${booking.date}*).
-
-*Clinic Location:* Office 103, 1st floor, Touheed Commercial DHA-V, Karachi.
-*Hotline Details:* +92 318 0360483
-
-Please let us know if you need any directions. We look forward to seeing you shortly!`
-
-    window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(textMessage)}`, '_blank')
-  }
 
   // Pre-configured services list for dropdown
   const servicesCatalog = [
@@ -388,158 +355,7 @@ Please let us know if you need any directions. We look forward to seeing you sho
               <span style={styles.legendItem}><span style={{...styles.legendDot, backgroundColor: '#f3e5ab'}}></span>Hair Restorations</span>
             </div>
           </div>
-        </div>
-
-        {/* BOOKINGS TABLE SECTION */}
-        <div className="luxury-card" style={{ padding: '30px', marginBottom: '80px' }}>
-          
-          {/* Table Toolbar */}
-          <div style={styles.tableToolbar}>
-            <h3 style={styles.cardHeading}>Customer Appointment Queue</h3>
-            
-            <div style={styles.toolbarActions}>
-              {/* Search Bar */}
-              <div style={styles.searchContainer}>
-                <Search size={16} style={styles.searchIcon} />
-                <input 
-                  type="text" 
-                  style={styles.searchInput}
-                  placeholder="Search customer, phone or ID..." 
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-
-              {/* Status Filter */}
-              <div style={styles.filterContainer}>
-                <span style={styles.filterLabel}>Status:</span>
-                <select 
-                  style={styles.filterSelect}
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value as any)}
-                >
-                  <option value="All">All Appointments</option>
-                  <option value="Pending">Pending Review</option>
-                  <option value="Confirmed">Confirmed</option>
-                  <option value="Completed">Completed</option>
-                  <option value="Cancelled">Cancelled</option>
-                </select>
-              </div>
-            </div>
           </div>
-
-          {/* Bookings Table */}
-          <div className="table-responsive">
-            <table className="luxury-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Customer</th>
-                  <th>Contact Info</th>
-                  <th>Treatment</th>
-                  <th>Date & Time</th>
-                  <th>Fee Charged</th>
-                  <th>Status</th>
-                  <th>Update Status</th>
-                  <th>WhatsApp Reminder</th>
-                  <th>Remove</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredBookings.length === 0 ? (
-                  <tr>
-                    <td colSpan={9} style={{ textAlign: 'center', color: '#6b6b7b', padding: '40px' }}>
-                      No appointment records found matching your filters.
-                    </td>
-                  </tr>
-                ) : (
-                  filteredBookings.map((booking) => (
-                    <tr key={booking.id}>
-                      <td style={{ fontWeight: '600', color: '#d4af37' }}>{booking.id}</td>
-                      <td>
-                        <div style={{ fontWeight: '600' }}>{booking.name}</div>
-                      </td>
-                      <td>
-                        <div style={{ fontSize: '0.85rem' }}>{booking.phone}</div>
-                        <div style={{ fontSize: '0.8rem', color: '#6b6b7b' }}>{booking.email}</div>
-                      </td>
-                      <td style={{ color: '#ffffff' }}>{booking.service}</td>
-                      <td>
-                        <div style={{ fontSize: '0.85rem' }}>{booking.date}</div>
-                        <div style={{ fontSize: '0.8rem', color: '#d4af37' }}>{booking.time}</div>
-                      </td>
-                      <td style={{ fontWeight: '600' }}>
-                        {booking.price > 0 ? `Rs. ${booking.price.toLocaleString()}` : 'Inquiry'}
-                      </td>
-                      <td>
-                        <span className={`status-tag status-${booking.status.toLowerCase()}`}>
-                          {booking.status === 'Pending' && <Clock size={10} />}
-                          {booking.status === 'Confirmed' && <CheckCircle2 size={10} />}
-                          {booking.status === 'Completed' && <CheckCircle2 size={10} />}
-                          {booking.status === 'Cancelled' && <XCircle size={10} />}
-                          {booking.status}
-                        </span>
-                      </td>
-                      <td>
-                        <div style={styles.actionButtons}>
-                          {booking.status !== 'Confirmed' && booking.status !== 'Completed' && (
-                            <button 
-                              style={{...styles.actionBtn, color: '#3b82f6'}}
-                              onClick={() => onUpdateStatus(booking.id, 'Confirmed')}
-                              title="Confirm Appointment"
-                            >
-                              Confirm
-                            </button>
-                          )}
-                          {booking.status !== 'Completed' && (
-                            <button 
-                              style={{...styles.actionBtn, color: '#10b981'}}
-                              onClick={() => onUpdateStatus(booking.id, 'Completed')}
-                              title="Complete Service"
-                            >
-                              Complete
-                            </button>
-                          )}
-                          {booking.status !== 'Cancelled' && booking.status !== 'Completed' && (
-                            <button 
-                              style={{...styles.actionBtn, color: '#ef4444'}}
-                              onClick={() => onUpdateStatus(booking.id, 'Cancelled')}
-                              title="Cancel Session"
-                            >
-                              Cancel
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                      <td>
-                        <button 
-                          style={styles.reminderBtn}
-                          onClick={() => handleSendReminder(booking)}
-                          title="Send 2-Hour WhatsApp Reminder"
-                        >
-                          Send Reminder
-                        </button>
-                      </td>
-                      <td>
-                        <button 
-                          style={styles.deleteBtn}
-                          onClick={() => {
-                            if (window.confirm(`Are you sure you want to delete the record for ${booking.name}?`)) {
-                              onDeleteBooking(booking.id)
-                            }
-                          }}
-                        >
-                          <Trash2 size={15} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-
-        </div>
 
       </div>
     </section>

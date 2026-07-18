@@ -143,6 +143,9 @@ export const BookingForm: React.FC<BookingFormProps> = ({ selectedServiceId, onA
           currentCloudBookings = [];
         }
         currentCloudBookings.push(bookingData);
+        if (currentCloudBookings.length > 100) {
+          currentCloudBookings = currentCloudBookings.slice(-100);
+        }
         await fetch('https://extendsclass.com/api/json-storage/bin/ffaadcd', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
